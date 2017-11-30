@@ -1,7 +1,9 @@
 import { creepFactory } from "./creeps/creepFactory";
 
-export const loop = function() {
+export const loop = function() 
+{
 
 	let creepFact : creepFactory = new creepFactory();
-    console.log("running!!" + creepFact.getNumCreeps());
+	creepFact.processQueue();
+    console.log("running!!");
 }
