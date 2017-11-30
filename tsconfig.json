@@ -9,18 +9,19 @@
     "experimentalDecorators": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "sourceMap": false,
+    "sourceMap": true
   },
   "compileOnSave": false,
   "include": [
-	"./src/**/*"
+    "webpack.config.ts",
+    "config/*.ts",
+    "libs/*.ts",
+    "typings/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts"
   ],
   "exclude": [
     "dist",
-    "node_modules",
-	"typings",
-	"libs",
-	"config",
-	"**/*.spec.ts"
+    "node_modules"
   ]
 }

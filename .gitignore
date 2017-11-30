@@ -85,4 +85,5 @@ $RECYCLE.BIN/
 #others
 .gitattributes
 .editorconfig
-
+/libs/*.js
+/libs/*.js.map

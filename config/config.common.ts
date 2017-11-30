@@ -122,9 +122,6 @@ export function init(options: EnvOptions): Config {
 
   config.module.rule("compile")
     .test(/\.tsx?$/)
-    .exclude
-      .add(path.join(ROOT, "src/snippets"))
-      .end()
     .use("typescript")
       .loader("awesome-typescript-loader")
       .options({ configFileName: "tsconfig.json" });
