@@ -1,38 +1,36 @@
-import * as creepRoleConst from "./constants/creepRoleConst";
 import { creepBuildJob } from "./creepBuildJob";
+import { creepManager } from "./creepManager";
 
 class creepFactory
 {
-	private creepCounter : Array<number>;
 	private buildQueue : Array<creepBuildJob>;
-	private freeCreepNames : Array<Array<string>>;
+	private creepManager : creepManager;
 
-	constructor()
+	constructor(_creepManager : creepManager)
 	{
-		this.buildQueue =  new Array();
-		this.creepCounter = new Array();
-		this.freeCreepNames = new Array();
-
-		//initialize freeNames array
-		for( let idx = 0; idx < creepRoleConst.eCreepRoles.invalid; idx++){
-			this.freeCreepNames.push(new Array());
-		}
+		this.creepManager = _creepManager;
+		this.buildQueue =  new Array<creepBuildJob>();
+	
 	}
 
 	private genCreepName(_creepBuildJob : creepBuildJob) : string
 	{
-		let creepRole :  creepRoleConst.eCreepRoles = _creepBuildJob.getRole();
-		//no free names for this role
-		if(this.freeCreepNames[creepRole].length < 1)
-			return _creepBuildJob.getRoleString()+this.creepCounter[creepRole];
-		else
-			return this.freeCreepNames[creepRole].pop();
+		let newFullName : string;
+	
+		let cachedName : string | number = this.creepManager.getFreeCreepNameForRole(_creepBuildJob.getRole());
+		if(typeof cachedName ==="number"){
+			newFullName = _creepBuildJob.getRoleString() + cachedName;
+		}else{
+			newFullName = cachedName;
+		}
+		
+		return newFullName;
 	}
 
 	/*
 	add creep to buildQueue
 	*/
-	public buildCreep(_creepBuildJob : creepBuildJob) : any
+	public buildCreep(_creepBuildJob : creepBuildJob) : boolean
 	{
 		this.buildQueue.push(_creepBuildJob);
 		return true;

@@ -1,7 +1,7 @@
 export const enum eCreepRoles{
 	harvester = 0,
 	upgrader,
-	invalid
+	endRoles
 }
 
 export const enum eCreepRolePriority{
