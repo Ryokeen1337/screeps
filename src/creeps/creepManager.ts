@@ -1,4 +1,5 @@
 import * as creepRoleConst from "./constants/creepRoleConst";
+import { serviceNames } from "../common/serviceNames";
 
 class creepManager{
 	private numCreeps : number;
@@ -18,6 +19,12 @@ class creepManager{
 			this.freeCreepNames[idx] = new Array<string>();
 			this.creepList[idx] = new Array<Creep>()
 		}
+
+		console.log("creepManager=>create");
+	}
+
+	public getServiceName() : string{
+		return serviceNames.creepManagerServ;
 	}
 
 	public getNumCreeps() : number
@@ -42,6 +49,19 @@ class creepManager{
 		this.numCreepsByRole[_creepRole]++;
 		this.numCreeps++;
 	}
+
+	public processCreeps(_creepRole?: creepRoleConst.eCreepRoles) : void{
+		//process all
+		if(_creepRole == null){
+
+		}else{//only specific roles
+
+		}
+	}
+
+	/*private updateCreep(_creep : Creep) : boolean{
+		return true;
+	}*/
 }
 
 export { creepManager };

@@ -8,12 +8,15 @@ export class creepBuildJob
 	private design : creepDesign;
 	private role : creepRoleConst.eCreepRoles;
 	private roleString : string;
+	private nextSpawnTime : number;
+	private creepName : string;
 
 	constructor(_spawnLocation : string, _role : creepRoleConst.eCreepRoles){
 		this.spawnLocation = _spawnLocation;
 		this.design = null;
 		this.role = _role;
 		this.roleString = creepHelpers.getNameForCreepRole(this.role);
+		this.nextSpawnTime = 0;
 	}
 
 	public setDesign(_design : creepDesign){
@@ -21,6 +24,14 @@ export class creepBuildJob
 			throw new ReferenceError("Null design in creepBuildJob");
 		}
 		this.design = _design;
+	}
+
+	public setName(_creepName : string){
+		this.creepName = _creepName;
+	}
+
+	public setNextSpawnTime(_nextTime : number){
+		this.nextSpawnTime = _nextTime;
 	}
 
 	public getSpawnLocation():string{
@@ -41,5 +52,17 @@ export class creepBuildJob
 
 	public getRoleString() : string{
 		return this.roleString;
+	}
+
+	public getName() : string{
+		return this.creepName;
+	}
+
+	public getNextSpawnTime() : number{
+		return this.nextSpawnTime;
+	}
+
+	public decreaseSpawnTime(){
+		this.nextSpawnTime--;
 	}
 }
