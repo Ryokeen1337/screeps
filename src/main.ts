@@ -1,36 +1,55 @@
 import { creepFactory } from "./creeps/creepFactory";
 import { creepManager } from "./creeps/creepManager";
 import { gameServices } from "./gameServices";
-import { serviceNames } from "./common/serviceNames";
+//import { serviceNames } from "./common/serviceNames";
 
-let _isInitialized : boolean = false;
-let _gameService : gameServices = null;
 
-function initialize(){
-	if(_isInitialized)
+export const initialize = function() 
+{
+	if(Memory.isInitialized === true)
 		return;
+
+	Memory.isInitialized = true;
+
+	console.log("Initialize!!");
 
 	let _creepManager : creepManager = new creepManager();
 	let _creepFact : creepFactory = new creepFactory(_creepManager);
 
-	if(_gameService == null)
-		_gameService = new gameServices();
+	var _gameServices = new gameServices();
+	_gameServices.registerService(_creepManager.getServiceName(),_creepManager);
+	_gameServices.registerService(_creepFact.getServiceName(),_creepFact);
 
-	_gameService.registerService(_creepManager.getServiceName(),_creepManager);
-	_gameService.registerService(_creepFact.getServiceName(),_creepFact);
+	Memory.Services = _gameServices;
 
-	_isInitialized = true;
+	let _test : Array<Array<string>> = new Array<Array<string>>();
+	_test.push(new Array<string>());
+	_test.push(new Array<string>());
+
+	_test[0].push("test01");
+	_test[0].push("test02");
+	_test[1].push("test11");
+	_test[1].push("test12");
+	Memory.testMap = _test;
 }
 
 export const loop = function() 
 {
 	initialize();
 
-	let _creepFact : creepFactory = _gameService.getService(serviceNames.creepFactoryServ);
-	let _creepManager : creepManager = _gameService.getService(serviceNames.creepManagerServ);
-	
+	if(Memory.isInitialized !== true)
+		return;
+
+	//let _test : Map<string,any> = Memory.testMap;
+	//console.log(_test.get("lulu"));
+
+	/*var _gameServices = Memory.Services;
+
+	let _creepFact : creepFactory = _gameServices.getService(serviceNames.creepFactoryServ);
+	let _creepManager : creepManager = _gameServices.getService(serviceNames.creepManagerServ);
+
 	_creepFact.processQueue();
-	_creepManager.processCreeps();
+	_creepManager.processCreeps();*/
 
     console.log("running!!");
 }

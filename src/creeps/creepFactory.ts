@@ -54,6 +54,8 @@ class creepFactory
 
 	public processQueue() : void
 	{
+		console.log("creepFactory=>processQueue");
+		
 		//don't start until we have something in our queue
 		if(this.buildQueue.length < 1)
 			return;

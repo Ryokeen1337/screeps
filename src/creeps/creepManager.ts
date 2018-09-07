@@ -57,6 +57,8 @@ class creepManager{
 		}else{//only specific roles
 
 		}
+
+		console.log("creepManager=>processCreeps");
 	}
 
 	/*private updateCreep(_creep : Creep) : boolean{
